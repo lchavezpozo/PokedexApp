@@ -6,5 +6,6 @@
 //
 
 protocol PokemonService {
-    func getPokemons()  async -> Result<[Pokemon], Error>
+    func getPokemons(limit: Int, offset: Int) async -> Result<[Pokemon], Error>
+    func getPokemonDetail(pokemonId: Int) async -> Result<PokemonDetail, Error>
 }

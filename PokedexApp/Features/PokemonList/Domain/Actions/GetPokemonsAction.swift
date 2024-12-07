@@ -17,7 +17,7 @@ protocol GetPokemonsAction {
 struct GetPokemonsActionDefault: GetPokemonsAction {
     private let pokemonService: PokemonService
     private let pokemonRepository: PokemonRepository
-    
+
     init(pokemonService: PokemonService, pokemonRepository: PokemonRepository) {
         self.pokemonService = pokemonService
         self.pokemonRepository = pokemonRepository
@@ -25,7 +25,7 @@ struct GetPokemonsActionDefault: GetPokemonsAction {
 
     func execute() async -> [Pokemon] {
         let localPokemons = await pokemonRepository.getPokemons()
-        let result = await pokemonService.getPokemons()
+        let result = await pokemonService.getPokemons(limit: 151, offset: 0)
         switch result {
             case .success(let pokemons):
             await pokemonRepository.savePokemons(pokemons)

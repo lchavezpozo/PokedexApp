@@ -9,28 +9,22 @@
 class PokemonMother {
     static func pikachu() -> Pokemon {
         return Pokemon(
-            name: "Pikachu",
-            number: 25,
-            types: ["Electric"],
-            imageUrl: "https://example.com/pikachu.png"
+            id: 1,
+            name: "Pikachu"
         )
     }
     
     static func bulbasaur() -> Pokemon {
         return Pokemon(
-            name: "Bulbasaur",
-            number: 1,
-            types: ["Grass", "Poison"],
-            imageUrl: "https://example.com/bulbasaur.png"
+            id: 1,
+            name: "Bulbasaur"
         )
     }
     
     static func charmander() -> Pokemon {
         return Pokemon(
-            name: "Charmander",
-            number: 4,
-            types: ["Fire"],
-            imageUrl: "https://example.com/charmander.png"
+            id: 1,
+            name: "Charmander"
         )
     }
     
