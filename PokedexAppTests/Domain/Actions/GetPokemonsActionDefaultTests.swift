@@ -47,19 +47,22 @@ private extension GetPokemonsActionDefaultTests {
     func givenSUT() {
         pokemonService = PokemonServiceSpy()
         pokemonRepository = PokemonRepositorySpy()
-        sut = GetPokemonsActionDefault(pokemonService: pokemonService,
+        let pokedexDataManager = PokedexDataManager(pokemonService: pokemonService)
+        sut = GetPokemonsActionDefault(pokedexDataManager: pokedexDataManager,
                                        pokemonRepository: pokemonRepository)
     }
-    
+
     func givenPokemonsServiceSuccess() {
         pokemonService.stubbedGetPokemonsResult = .success(PokemonMother.randomPokemons())
+        pokemonService.stubbedGetPokemonDetailResult = .success(PokemonDetailMother.pokemonDetail())
+        pokemonService.stubbedGetEvolutionChainResult = .success(EvolutionChainMother.evolutionChain())
     }
 
     func givenLocalPokemons(with pokemons: [Pokemon]) {
         pokemonRepository.stubbedGetPokemonsResult = pokemons
     }
     
-    func givenPokemonsServiceFailure() {
+    func givenPokemonsServiceFailure()  {
         let someError = NSError(domain: "", code: 0)
         pokemonService.stubbedGetPokemonsResult = .failure(someError)
     }

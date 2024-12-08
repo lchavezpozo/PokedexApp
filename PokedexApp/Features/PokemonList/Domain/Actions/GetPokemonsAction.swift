@@ -6,31 +6,26 @@
 //
 import OSLog
 
-enum GetPokemonsActionError: Error {
-    case emptyPokemons
-}
-
 protocol GetPokemonsAction {
     func execute() async -> [Pokemon]
 }
 
 struct GetPokemonsActionDefault: GetPokemonsAction {
-    private let pokemonService: PokemonService
+    private let pokedexDataManager: PokedexDataManager
     private let pokemonRepository: PokemonRepository
 
-    init(pokemonService: PokemonService, pokemonRepository: PokemonRepository) {
-        self.pokemonService = pokemonService
+    init(pokedexDataManager: PokedexDataManager, pokemonRepository: PokemonRepository) {
+        self.pokedexDataManager = pokedexDataManager
         self.pokemonRepository = pokemonRepository
     }
 
     func execute() async -> [Pokemon] {
         let localPokemons = await pokemonRepository.getPokemons()
-        let result = await pokemonService.getPokemons(limit: 151, offset: 0)
-        switch result {
-            case .success(let pokemons):
+        do {
+            let pokemons = try await pokedexDataManager.getCompleteInformation(numberOfPokemons: 151)
             await pokemonRepository.savePokemons(pokemons)
             return pokemons
-        case .failure(let error):
+        } catch {
             Logger().debug("Error getting pokemons: \(error)")
             return localPokemons
         }

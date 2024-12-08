@@ -6,7 +6,7 @@
 //
 @testable import PokedexApp
 
-class PokemonServiceSpy: PokemonService {
+class PokemonServiceSpy: PokemonService, @unchecked Sendable {
     var invokedGetPokemons = false
     var invokedGetPokemonsCount = 0
     var invokedGetPokemonsParameters: (limit: Int, offset: Int)?
@@ -33,5 +33,19 @@ class PokemonServiceSpy: PokemonService {
         invokedGetPokemonDetailParameters = (pokemonId, ())
         invokedGetPokemonDetailParametersList.append((pokemonId, ()))
         return stubbedGetPokemonDetailResult
+    }
+
+    var invokedGetEvolutionChain = false
+    var invokedGetEvolutionChainCount = 0
+    var invokedGetEvolutionChainParameters: (pokemonId: Int, Void)?
+    var invokedGetEvolutionChainParametersList = [(pokemonId: Int, Void)]()
+    var stubbedGetEvolutionChainResult: Result<[Pokemon], Error>!
+
+    func getEvolutionChain(pokemonId: Int) async -> Result<[Pokemon], Error> {
+        invokedGetEvolutionChain = true
+        invokedGetEvolutionChainCount += 1
+        invokedGetEvolutionChainParameters = (pokemonId, ())
+        invokedGetEvolutionChainParametersList.append((pokemonId, ()))
+        return stubbedGetEvolutionChainResult
     }
 }

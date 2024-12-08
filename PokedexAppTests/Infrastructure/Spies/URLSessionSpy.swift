@@ -8,7 +8,7 @@
 import Foundation
 @testable import PokedexApp
 
-class URLSessionSpy: URLSessionProtocol {
+class URLSessionSpy: URLSessionProtocol, @unchecked Sendable {
     var invokedData = false
     var invokedDataCount = 0
     var invokedDataParameters: (url: URL, Void)?
