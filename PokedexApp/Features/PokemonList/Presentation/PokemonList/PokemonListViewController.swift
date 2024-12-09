@@ -17,6 +17,7 @@ class PokemonListViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.estimatedRowHeight = 127
         tableView.rowHeight = UITableView.automaticDimension
+        tableView.delegate = self
         return tableView
     }()
 
@@ -51,6 +52,11 @@ class PokemonListViewController: UIViewController {
         setupUI()
         fetchPokemons()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
 
     private func setupBinding() {
         viewModel.didLoadPokemon =  { [weak self] pokemon in
@@ -68,7 +74,6 @@ class PokemonListViewController: UIViewController {
 
     private func setupNavigationController() {
         title = "Pokédex Kanto"
-        navigationController?.navigationBar.prefersLargeTitles = true
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -114,6 +119,11 @@ extension PokemonListViewController: UISearchResultsUpdating {
     }
 }
 
+extension PokemonListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.showPokemon(index: indexPath.row)
+    }
+}
 private extension PokemonListViewController {
     func setupUI() {
         view.backgroundColor = .white

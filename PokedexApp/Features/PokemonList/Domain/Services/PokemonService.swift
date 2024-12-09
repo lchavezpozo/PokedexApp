@@ -8,5 +8,5 @@
 protocol PokemonService: Sendable {
     func getPokemons(limit: Int, offset: Int) async -> Result<[Pokemon], Error>
     func getPokemonDetail(pokemonId: Int) async -> Result<PokemonDetail, Error>
-    func getEvolutionChain(pokemonId: Int) async -> Result<[Pokemon], Error>
+    func getEvolutionChain(pokemonId: Int) async -> Result<PokemonEvolutionChain, Error>
 }

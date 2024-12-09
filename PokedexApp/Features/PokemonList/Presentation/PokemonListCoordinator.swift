@@ -9,6 +9,10 @@ import UIKit
 @MainActor
 class PokemonListCoordinator {
     private let window: UIWindow
+    
+    private var navigationController: UINavigationController? {
+        window.rootViewController as? UINavigationController
+    }
 
     init(window: UIWindow) {
         self.window = window
@@ -20,8 +24,13 @@ class PokemonListCoordinator {
         let repository = PokemonCoreDataRepository()
         let getPokemonsAction = GetPokemonsActionDefault(pokedexDataManager: pokedexDataManager,
                                                          pokemonRepository: repository)
-        let viewModel = PokemonListViewModelDefault(getPokemonsAction: getPokemonsAction)
+        let viewModel = PokemonListViewModelDefault(getPokemonsAction: getPokemonsAction, onTapPokemon: showPokemonDetail)
         window.rootViewController = UINavigationController(rootViewController: PokemonListViewController(viewModel: viewModel))
         window.makeKeyAndVisible()
+    }
+
+    func showPokemonDetail(pokemon: Pokemon) {
+        let vc = PokemonDetailViewController(pokemon: pokemon)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

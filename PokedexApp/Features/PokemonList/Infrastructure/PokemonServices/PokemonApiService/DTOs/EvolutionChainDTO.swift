@@ -7,6 +7,10 @@
 
 struct EvolutionChainDTO: Decodable {
     let chain: EvolutionNodeDTO
+
+    func toModal() -> PokemonEvolutionChain {
+        chain.toModel()
+    }
 }
 
 struct EvolutionNodeDTO: Decodable {
@@ -16,5 +20,11 @@ struct EvolutionNodeDTO: Decodable {
     enum CodingKeys: String, CodingKey {
         case pokemon = "species"
         case evolvesTo
+    }
+    
+    func toModel() -> PokemonEvolutionChain {
+        let pokemon = pokemon.toModel()
+        let evolutionChain = evolvesTo.map { $0.toModel()}
+        return PokemonEvolutionChain(pokemon: pokemon, evolutions: evolutionChain)
     }
 }

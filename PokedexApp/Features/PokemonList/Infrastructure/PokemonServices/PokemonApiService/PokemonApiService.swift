@@ -57,21 +57,16 @@ struct PokemonApiService: PokemonService {
             return .failure(error)
         }
     }
-    
-    func getEvolutionChain(pokemonId: Int) async -> Result<[Pokemon], Error> {
+
+    func getEvolutionChain(pokemonId: Int) async -> Result<PokemonEvolutionChain, Error> {
         do {
             let species = try await getSpecies(pokemonId: pokemonId)
             let data = try await fetchData(from: URL(string: species.evolutionChain.url))
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             let pokemonEvolutionChain = try decoder.decode(EvolutionChainDTO.self, from: data)
-            var pokemons: [Pokemon] = []
-            var currentChain: EvolutionNodeDTO? = pokemonEvolutionChain.chain
-            while let chain = currentChain {
-                    pokemons.append(chain.pokemon.toModel())
-                    currentChain = chain.evolvesTo.first
-                }
-            return .success(pokemons)
+            
+            return .success(pokemonEvolutionChain.toModal())
         } catch {
             return .failure(error)
         }

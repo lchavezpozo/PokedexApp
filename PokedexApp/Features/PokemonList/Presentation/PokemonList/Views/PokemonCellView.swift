@@ -61,8 +61,7 @@ class PokemonCellView: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 1
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 22)
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = .boldSystemFont(ofSize: 20)
         label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
     }()

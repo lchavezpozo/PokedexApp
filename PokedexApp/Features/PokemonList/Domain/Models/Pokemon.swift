@@ -101,9 +101,14 @@ actor PokemonDetailStore {
 }
 
 actor PokemonEvolutionChainStore {
-    private(set) var chain: [Pokemon] = []
-    
-    func update(chain: [Pokemon]) {
+    private(set) var chain: PokemonEvolutionChain?
+
+    func update(chain: PokemonEvolutionChain?) {
         self.chain = chain
     }
+}
+
+struct PokemonEvolutionChain {
+    let pokemon: Pokemon
+    let evolutions: [PokemonEvolutionChain]
 }

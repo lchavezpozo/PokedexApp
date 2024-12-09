@@ -9,6 +9,7 @@
 protocol PokemonListViewModel {
     func fetchPokemonList() async
     func searchPokemon(query: String)
+    func showPokemon(index: Int)
 
     var didLoadPokemon: (([Pokemon]) -> Void)? { get set }
     var didToggleEmptyStateView: ((Bool) -> Void)? { get set }
@@ -22,9 +23,12 @@ class PokemonListViewModelDefault: PokemonListViewModel {
 
     private var pokemons: [Pokemon] = []
     private let getPokemonsAction: GetPokemonsAction
+    private let onTapPokemon: ((Pokemon) -> Void)
 
-    init(getPokemonsAction: GetPokemonsAction) {
+    init(getPokemonsAction: GetPokemonsAction,
+         onTapPokemon: @escaping ((Pokemon) -> Void)) {
         self.getPokemonsAction = getPokemonsAction
+        self.onTapPokemon = onTapPokemon
     }
 
     func fetchPokemonList() async {
@@ -44,5 +48,10 @@ class PokemonListViewModelDefault: PokemonListViewModel {
         let toggleEmptyStateView = pokemons.isEmpty
         didLoadPokemon?(pokemons)
         didToggleEmptyStateView?(toggleEmptyStateView)
+    }
+
+    func showPokemon(index: Int) {
+        let pokemon = pokemons[index]
+        onTapPokemon(pokemon)
     }
 }
