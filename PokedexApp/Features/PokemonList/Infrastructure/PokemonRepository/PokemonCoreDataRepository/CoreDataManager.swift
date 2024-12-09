@@ -31,8 +31,8 @@ class CoreDataStack {
     func saveContext() async throws {
         guard context.hasChanges else { return }
         do {
-            try await context.perform { [weak self] in
-                try  self?.context.save()
+            try await context.perform { [self] in
+                try  self.context.save()
             }
             
         } catch {

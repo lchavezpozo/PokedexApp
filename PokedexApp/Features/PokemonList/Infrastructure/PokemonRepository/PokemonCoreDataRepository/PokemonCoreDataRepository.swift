@@ -22,6 +22,7 @@ final class PokemonCoreDataRepository: PokemonRepository {
         }
     }
 
+    @MainActor
     func getPokemons() async -> [Pokemon] {
         do {
             let pokemonEntities = try await CoreDataStack.shared.fetch(PokemonEntity.self)
@@ -54,12 +55,13 @@ private extension PokemonCoreDataRepository {
         }
     }
 
+    @MainActor
     func fetchOrCreateType(named typeName: String) async throws -> PokemonTypeEntity {
         if let existingType = try await CoreDataStack.shared.fetch(PokemonTypeEntity.self, predicate: NSPredicate(format: "name == %@", typeName)).first {
             return existingType
         }
 
-        let newTypeEntity = await CoreDataStack.shared.insert(PokemonTypeEntity.self)
+        let newTypeEntity =  CoreDataStack.shared.insert(PokemonTypeEntity.self)
         newTypeEntity.name = typeName
         return newTypeEntity
     }
