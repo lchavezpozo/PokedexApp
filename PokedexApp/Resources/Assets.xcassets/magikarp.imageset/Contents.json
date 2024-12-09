@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "pokeball_loading.png",
+      "filename" : "magikarp.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "pokeball_loading 1.png",
+      "filename" : "magikarp 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "pokeball_loading 2.png",
+      "filename" : "magikarp 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

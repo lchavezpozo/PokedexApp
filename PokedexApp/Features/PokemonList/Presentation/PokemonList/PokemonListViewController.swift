@@ -35,6 +35,15 @@ class PokemonListViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    private lazy var emptyResultView: EmptyResultView = {
+        let view = EmptyResultView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.onTapRetryButton = { [weak self] in
+            self?.fetchPokemons()
+        }
+        return view
+    }()
 
     init(viewModel: PokemonListViewModel) {
         self.viewModel = viewModel
@@ -56,6 +65,7 @@ class PokemonListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.tintColor = .black
     }
 
     private func setupBinding() {
@@ -68,7 +78,12 @@ class PokemonListViewController: UIViewController {
         }
     
         viewModel.didTogleLoadView = { [weak self] showLoading in
+            self?.toggleEmptyResultView(false)
             self?.togleLoadingView(showLoading)
+        }
+        
+        viewModel.didEmptyResult = { [weak self] in
+            self?.toggleEmptyResultView(true)
         }
     }
 
@@ -109,6 +124,23 @@ class PokemonListViewController: UIViewController {
         } else {
             loadingView.stopLoading()
         }
+    }
+    
+    private func toggleEmptyResultView(_ shouldShow: Bool) {
+        if shouldShow {
+            emptyResultView.removeFromSuperview()
+            view.addSubview(emptyResultView)
+            NSLayoutConstraint.activate([
+                emptyResultView.topAnchor.constraint(equalTo: view.topAnchor),
+                emptyResultView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                emptyResultView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                emptyResultView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
+        } else {
+            emptyResultView.removeFromSuperview()
+        }
+        
+        
     }
 }
 
