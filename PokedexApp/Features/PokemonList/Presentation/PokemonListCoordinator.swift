@@ -9,7 +9,7 @@ import UIKit
 @MainActor
 class PokemonListCoordinator {
     private let window: UIWindow
-    
+
     private var navigationController: UINavigationController? {
         window.rootViewController as? UINavigationController
     }
@@ -19,9 +19,9 @@ class PokemonListCoordinator {
     }
 
     func start() {
-        let pokemonApiService = PokemonApiService()
+        let pokemonApiService = InfrastructureProvider.getPokemonService()
         let pokedexDataManager = PokedexDataManager(pokemonService: pokemonApiService)
-        let repository = PokemonCoreDataRepository()
+        let repository = InfrastructureProvider.getPokemonRepository()
         let getPokemonsAction = GetPokemonsActionDefault(pokedexDataManager: pokedexDataManager,
                                                          pokemonRepository: repository)
         let viewModel = PokemonListViewModelDefault(getPokemonsAction: getPokemonsAction, onTapPokemon: showPokemonDetail)
