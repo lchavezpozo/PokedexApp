@@ -6,7 +6,7 @@
 //
 import OSLog
 
-protocol GetPokemonsAction {
+protocol GetPokemonsAction: Sendable {
     func execute() async -> [Pokemon]
 }
 

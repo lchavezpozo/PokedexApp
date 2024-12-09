@@ -6,7 +6,7 @@
 //
 
 
-protocol PokemonRepository {
+protocol PokemonRepository: Sendable {
     func savePokemons(_ pokemons: [Pokemon]) async
     func getPokemons() async -> [Pokemon]
 }

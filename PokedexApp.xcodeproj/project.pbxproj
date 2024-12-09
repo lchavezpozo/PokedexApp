@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		48B92A952D05638700EBD36C /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 48B92A942D05638700EBD36C /* SDWebImage */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		48BF5A4F2D01426000E70427 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -65,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48B92A952D05638700EBD36C /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +130,7 @@
 			);
 			name = PokedexApp;
 			packageProductDependencies = (
+				48B92A942D05638700EBD36C /* SDWebImage */,
 			);
 			productName = PokedexApp;
 			productReference = 48BF5A382D01425F00E70427 /* PokedexApp.app */;
@@ -208,6 +214,9 @@
 			);
 			mainGroup = 48BF5A2F2D01425F00E70427;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				48B92A932D05638700EBD36C /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 48BF5A392D01425F00E70427 /* Products */;
 			projectDirPath = "";
@@ -573,6 +582,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		48B92A932D05638700EBD36C /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.20.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		48B92A942D05638700EBD36C /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 48B92A932D05638700EBD36C /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 48BF5A302D01425F00E70427 /* Project object */;
 }
